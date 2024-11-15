@@ -19,7 +19,7 @@ public interface CustomerManagementService {
 
 	public Customer findCustomerById(String customerId) throws CustomerNotFoundException;
 
-	public List<Customer> findCustomersByName (String name);
+	public List<Customer> findCustomersByName (String name) throws CustomerNotFoundException;
 
 	public List<Customer> getAllCustomers();
 
