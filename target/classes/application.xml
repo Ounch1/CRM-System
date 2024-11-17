@@ -37,4 +37,10 @@
 		<constructor-arg ref="diaryManagementService" />
 	</bean>
 
+	<!-- AOP -->
+	<!-- Timing Bean -->
+	<bean id = "timingProxy" class = "com.yrgo.services.customers.CustomerManagementServiceTimingProxy">
+		<property name ="originalCustomerManagementService" ref ="customerManagementService" />
+	</bean>
+
 </beans>
