@@ -16,6 +16,7 @@ public class CustomerDaoJdbcTemplateImpl implements CustomerDao{
 
     public CustomerDaoJdbcTemplateImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+        createTables();
     }
 
     public class CallRowMapper implements RowMapper<Call> {

@@ -1,7 +1,12 @@
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
-		"http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
 
-<beans>
+	   xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
 	<!-- DATASOURCES -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
@@ -17,7 +22,7 @@
 		<constructor-arg ref="dataSource" />
 	</bean>
 
-	<!-- DAO CLASSES -->
+	<!-- DAO BEANS -->
 	<bean id="actionDao" class="com.yrgo.dataaccess.ActionDaoJdbcImpl"
 		  init-method="createTables">
 		<constructor-arg ref="jdbcTemplate"/>
@@ -29,7 +34,10 @@
 	</bean>
 
 	<!-- SERVICES -->
-	<bean id="customerManagementService" class="com.yrgo.services.customers.CustomerManagementMockImpl"/>
+	<bean id="customerManagementService" class="com.yrgo.services.customers.CustomerManagementServiceProductionImpl">
+		<constructor-arg ref="customerDao" />
+	</bean>
+
 	<bean id="diaryManagementService" class="com.yrgo.services.diary.DiaryManagementServiceMockImpl"/>
 	<!-- Use customermanagement and diary -->
 	<bean id="callHandlingService" class="com.yrgo.services.calls.CallHandlingServiceMockImpl">
@@ -38,9 +46,15 @@
 	</bean>
 
 	<!-- AOP -->
-	<!-- Timing Bean -->
-	<bean id = "timingProxy" class = "com.yrgo.services.customers.CustomerManagementServiceTimingProxy">
-		<property name ="originalCustomerManagementService" ref ="customerManagementService" />
-	</bean>
+	<!-- Advice -->
+	<bean id="loggingAdvice"
+		  class="com.yrgo.advice.PerformanceTimingAdvice" />
+
+	<aop:config>
+		<aop:aspect ref = "loggingAdvice">
+			<aop:around method="performTimingMeasurement"
+						pointcut = "execution (* com.yrgo.services..*.* (..) )" />
+		</aop:aspect>
+	</aop:config>
 
 </beans>
