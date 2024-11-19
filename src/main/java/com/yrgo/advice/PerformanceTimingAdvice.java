@@ -19,9 +19,11 @@ public class PerformanceTimingAdvice {
             long endTime = System.nanoTime();
             double timeTaken = endTime - startTime;
 
+            String className = method.getSignature().getDeclaringType().getSimpleName();
+
             // Format: blue for the message, yellow for the method name, and reset at the end
             System.out.printf(blue + "TIMER: Method " +
-                    yellow + method.getSignature().getName() + "()" + blue + " took " +
+                    yellow + className + "." + method.getSignature().getName() + "()" + blue + " took " +
                     timeTaken / 1000000 + "ms\n" + white);
         }
     }
