@@ -34,7 +34,6 @@ public class CustomerDaoJdbcTemplateImpl implements CustomerDao {
 
     public CustomerDaoJdbcTemplateImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
-        createTables();  // Make sure the table exists in the start
     }
 
     // ROW MAPPING AREA
