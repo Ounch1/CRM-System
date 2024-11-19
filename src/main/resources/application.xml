@@ -51,9 +51,10 @@
 		  class="com.yrgo.advice.PerformanceTimingAdvice" />
 
 	<aop:config>
-		<aop:aspect ref = "loggingAdvice">
+		<aop:aspect ref="loggingAdvice">
 			<aop:around method="performTimingMeasurement"
-						pointcut = "execution (* com.yrgo.services..*.* (..) )" />
+						pointcut="execution(* com.yrgo.services..*(..))
+								or execution(* com.yrgo.dataaccess..*(..))" />
 		</aop:aspect>
 	</aop:config>
 
