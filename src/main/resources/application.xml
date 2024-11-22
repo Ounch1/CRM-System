@@ -63,8 +63,7 @@
 	<aop:config>
 		<aop:aspect ref="loggingAdvice">
 			<aop:around method="performTimingMeasurement"
-						pointcut="execution(* com.yrgo.services..*(..))
-								or execution(* com.yrgo.dataaccess..*(..))" />
+						pointcut="execution (* com.yrgo.services..*.* (..) ) || execution (* com.yrgo.dataaccess.*.* (..) )"/>
 		</aop:aspect>
 	</aop:config>
 
