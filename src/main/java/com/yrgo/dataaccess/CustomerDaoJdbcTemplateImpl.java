@@ -16,6 +16,7 @@ import java.util.List;
 
 @Repository
 public class CustomerDaoJdbcTemplateImpl implements CustomerDao {
+
     private final JdbcTemplate jdbcTemplate;
 
     // INSERT UPDATE DELETE SQL
@@ -35,7 +36,7 @@ public class CustomerDaoJdbcTemplateImpl implements CustomerDao {
             = "SELECT CUSTOMER_ID, COMPANY_NAME, EMAIL, PHONE FROM CUSTOMER_TBL";
     private static final String ADD_CALL_SQL
             = "INSERT INTO CALL_TBL(CUSTOMER_ID, TIME_AND_DATE, NOTES) VALUES(?, ?, ?)";
-    @Autowired
+
     public CustomerDaoJdbcTemplateImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
