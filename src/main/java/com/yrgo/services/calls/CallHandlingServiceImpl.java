@@ -5,20 +5,23 @@ import com.yrgo.domain.Call;
 import com.yrgo.services.customers.CustomerManagementService;
 import com.yrgo.services.customers.CustomerNotFoundException;
 import com.yrgo.services.diary.DiaryManagementService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
-import java.util.HashMap;
 
-public class CallHandlingServiceMockImpl implements CallHandlingService{
-    private final CustomerManagementService customerManagementService;
-    private final DiaryManagementService diaryManagementService;
+@Service
+@Transactional
+public class CallHandlingServiceImpl implements CallHandlingService{
 
-    // Constructor injection
-    public CallHandlingServiceMockImpl(CustomerManagementService customerManagementService,
-                                       DiaryManagementService diaryManagementService) {
-        this.customerManagementService = customerManagementService;
-        this.diaryManagementService = diaryManagementService;
+    private CustomerManagementService customerManagementService;
+
+    private DiaryManagementService diaryManagementService;
+
+    public CallHandlingServiceImpl(CustomerManagementService cms, DiaryManagementService dms) {
+        this.customerManagementService = cms;
+        this.diaryManagementService = dms;
     }
     @Override
     public void recordCall(String customerId, Call newCall, Collection<Action> actions) throws CustomerNotFoundException {
