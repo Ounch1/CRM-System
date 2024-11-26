@@ -2,15 +2,19 @@ package com.yrgo.dataaccess;
 
 import com.yrgo.domain.Call;
 import com.yrgo.domain.Customer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
+import javax.annotation.PostConstruct;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Repository
 public class CustomerDaoJdbcTemplateImpl implements CustomerDao {
     private final JdbcTemplate jdbcTemplate;
 
@@ -31,7 +35,7 @@ public class CustomerDaoJdbcTemplateImpl implements CustomerDao {
             = "SELECT CUSTOMER_ID, COMPANY_NAME, EMAIL, PHONE FROM CUSTOMER_TBL";
     private static final String ADD_CALL_SQL
             = "INSERT INTO CALL_TBL(CUSTOMER_ID, TIME_AND_DATE, NOTES) VALUES(?, ?, ?)";
-
+    @Autowired
     public CustomerDaoJdbcTemplateImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -102,6 +106,7 @@ public class CustomerDaoJdbcTemplateImpl implements CustomerDao {
     }
 
     // TABLE MANIPULATION AREA
+    @PostConstruct
     private void createTables() {
         createCustomerTableIfNotExists();
         createCallTableIfNotExists();
