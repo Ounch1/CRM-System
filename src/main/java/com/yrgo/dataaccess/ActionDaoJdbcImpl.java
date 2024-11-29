@@ -16,7 +16,6 @@ import org.springframework.stereotype.Repository;
 import javax.annotation.PostConstruct;
 
 
-@Repository
 public class ActionDaoJdbcImpl implements ActionDao {
 	private JdbcTemplate template;
 	private static final String DELETE_SQL = "DELETE FROM ACTION WHERE ACTION_ID=?";

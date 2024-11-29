@@ -20,8 +20,18 @@ public class SimpleClient {
             CallHandlingService callService = container.getBean(CallHandlingService.class);
             DiaryManagementService diaryService = container.getBean(DiaryManagementService.class);
 
+
             customerService.newCustomer(new Customer("CS03939", "Acme", "Good Customer"));
 
+            List<Customer> customers = customerService.getAllCustomers();
+            for (Customer cus : customers)
+            {
+                System.out.println(cus);
+            }
+
+            /// TESTING
+            System.exit(0);
+            /// TESTING
             Call newCall = new Call("Larry Wall called from Acme Corp");
             Action action1 = new Action("Call back Larry to ask how things are going", new GregorianCalendar(2016, 0, 0), "rac");
             Action action2 = new Action("Check our sales dept to make sure Larry is being tracked", new GregorianCalendar(2016, 0, 0), "rac");
@@ -30,11 +40,7 @@ public class SimpleClient {
             actions.add(action1);
             actions.add(action2);
 
-            try{
-                callService.recordCall("CS03939", newCall, actions);
-            }catch (CustomerNotFoundException e){
-                System.out.println("That customer doesn't exist");
-            }
+            callService.recordCall("CS03939", newCall, actions);
 
             System.out.println("Here are the outstanding actions:");
             Collection<Action> incompleteActions = diaryService.getAllIncompleteActions("rac");
@@ -43,6 +49,8 @@ public class SimpleClient {
             }
 
 
+        } catch (CustomerNotFoundException e){
+            System.out.println("A customer could not be found");
         }
         finally {
             container.close();
