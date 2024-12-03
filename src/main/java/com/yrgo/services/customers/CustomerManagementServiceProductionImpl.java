@@ -12,10 +12,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Transactional
 @Service
+@Transactional(propagation = Propagation.REQUIRES_NEW)
+
 public class CustomerManagementServiceProductionImpl implements CustomerManagementService{
+
     CustomerDao customerDAO;
+    @Autowired
     public CustomerManagementServiceProductionImpl(CustomerDao customerDAO) {
         this.customerDAO = customerDAO;
     }
