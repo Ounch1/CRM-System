@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Repository
 public class CustomerDaoJdbcTemplateImpl implements CustomerDao {
 
     private final JdbcTemplate jdbcTemplate;
