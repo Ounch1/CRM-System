@@ -14,7 +14,9 @@ import java.util.List;
 @Transactional
 @Service
 public class CustomerManagementServiceProductionImpl implements CustomerManagementService{
+
     CustomerDao customerDAO;
+    @Autowired
     public CustomerManagementServiceProductionImpl(CustomerDao customerDAO) {
         this.customerDAO = customerDAO;
     }
