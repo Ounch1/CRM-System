@@ -14,8 +14,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
+@Repository
 public class CustomerDaoJdbcTemplateImpl implements CustomerDao {
+
     private final JdbcTemplate jdbcTemplate;
 
     // INSERT UPDATE DELETE SQL
@@ -35,6 +36,7 @@ public class CustomerDaoJdbcTemplateImpl implements CustomerDao {
             = "SELECT CUSTOMER_ID, COMPANY_NAME, EMAIL, PHONE FROM CUSTOMER_TBL";
     private static final String ADD_CALL_SQL
             = "INSERT INTO CALL_TBL(CUSTOMER_ID, TIME_AND_DATE, NOTES) VALUES(?, ?, ?)";
+
     public CustomerDaoJdbcTemplateImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -150,7 +152,6 @@ public class CustomerDaoJdbcTemplateImpl implements CustomerDao {
     // CUSTOMER CRUD OPERATION AREA
     @Override
     public void create(Customer customer) {
-        System.out.println("Using JDBC");
         jdbcTemplate.update(INSERT_SQL, customer.getCustomerId(), customer.getCompanyName(),
                 customer.getEmail(), customer.getTelephone(), customer.getNotes());
     }
